@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - '3307:3307'
+    environment:
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=ThePASSWORD
+      - MYSQL_ROOT_PASSWORD=admin        # Set root password
+      - MYSQL_DATABASE=adi               # Create database `adi`
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d:ro"   # Custom MySQL config files if needed
