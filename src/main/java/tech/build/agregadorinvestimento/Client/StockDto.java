@@ -1,4 +1,4 @@
 package tech.build.agregadorinvestimento.Client;
 
-public record StockDto(double regularMarketPrice) {
+public record StockDto(double regularMarketPrice,String shortName,double regularMarketChangePercent) {
 }

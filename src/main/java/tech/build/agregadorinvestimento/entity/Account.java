@@ -1,5 +1,8 @@
 package tech.build.agregadorinvestimento.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,29 +16,36 @@ public class Account {
     @Column(name = "account_id")
     private UUID accountId;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "accountName")
+    private String accountName;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_Id")
+    @JsonBackReference
     private User user;
+
+    private String userName;
+
+    private double balance;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     @PrimaryKeyJoinColumn
     private BillingAdrees adrees;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
     private List<AccountStock> accountStocks;
 
     public Account() {
 
     }
-
-    public Account(UUID accountId, String description, User user, BillingAdrees adrees, List<AccountStock> accountStocks) {
+    public Account(UUID accountId, String accountName, User user, String userName, double balance, List<AccountStock> accountStocks) {
         this.accountId = accountId;
-        this.description = description;
+        this.accountName = accountName;
         this.user = user;
-        this.adrees = adrees;
+        this.userName = userName;
+        this.balance = balance;
         this.accountStocks = accountStocks;
     }
 
@@ -47,13 +57,30 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAccountName() {
+        return accountName;
+    }
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getUserName() {
+        return userName;
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+
 
     public User getUser() {
         return user;

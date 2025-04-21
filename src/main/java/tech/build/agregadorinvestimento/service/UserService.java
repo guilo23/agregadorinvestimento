@@ -35,7 +35,7 @@ public class UserService {
         this.billingAdreesRepository = billingAdreesRepository;
     }
 
-    public UUID createUser(CreateUserDto createUserDto) {
+    public User createUser(CreateUserDto createUserDto) {
         //DTO -> Entity
         var entity = new User(UUID.randomUUID(),
                 createUserDto.username(),
@@ -44,7 +44,8 @@ public class UserService {
                 null,
                 Instant.now());
         var userSaved = userRepository.save(entity);
-        return userSaved.getUserId();
+        return userSaved;
+
     }
 
     public void updateById(String userId, UpdateUserDto updateUserDto) {
@@ -77,31 +78,26 @@ public class UserService {
         }
     }
 
-    public void createAccount(String userId, CreateAccountDto createAccountDto) {
+    public Account createAccount(String userId, CreateAccountDto createAccountDto) {
         var user = userRepository.findById(UUID.fromString(userId)).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         var account = new Account(
                 UUID.randomUUID(),
-                createAccountDto.description(),
+                createAccountDto.accountName(),
                 user,
-                null,
+                user.getUsername(),
+                0.00,
                 new ArrayList<>()
         );
         var accountcreated = accountRepository.save(account);
-
-        var billingAdress = new BillingAdrees(
-                accountcreated.getAccountId(),
-                account,
-                createAccountDto.street(),
-                createAccountDto.number()
-        );
+        return accountcreated;
     }
 
     public List<AccountResponseDto> accountList(String userId) {
         var user = userRepository.findById(UUID.fromString(userId)).
                 orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return user.getAccounts().stream()
-                .map(ac  -> new AccountResponseDto(ac.getAccountId().toString(),ac.getDescription()))
+                .map(ac  -> new AccountResponseDto(ac.getAccountId().toString(),ac.getUserName(),ac.getAccountName(),ac.getBalance()))
             .toList();
     }
 }
