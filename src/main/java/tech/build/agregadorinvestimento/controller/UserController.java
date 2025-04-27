@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<Void> updateUserById(@PathVariable("userId") String userId, @RequestBody UpdateUserDto updateUserDto) {
         userService.updateById(userId, updateUserDto);
         return ResponseEntity.noContent().build();
