@@ -1,17 +1,16 @@
-Agregador de Investimentos - Spring Boot
+# Agregador de Investimento
 
-Este projeto é um agregador de investimentos desenvolvido com Spring Boot, que consome a API de consulta da BrAPI para exibir informações detalhadas sobre diferentes ativos financeiros. O objetivo é fornecer uma plataforma simples para que investidores possam consultar e visualizar informações sobre suas carteiras de investimentos.
-Tecnologias Utilizadas
+Um projeto para a criação de usuarios, contas e associação de ações com informações atualizadas da b3 através da api da brapi
 
-    Spring Boot: Framework Java para desenvolvimento de aplicações empresariais.
-    BrAPI: API que fornece dados financeiros de ativos de diferentes bolsas de valores.
-    Maven: Gerenciador de dependências.
-    RESTful API: Consumo de serviços REST para obtenção de dados.
+## 🚀 Começando
 
-Funcionalidades
+.Crie uma conta na  api da Brapi e adcione como variavél de ambiente com o nome "TOKEN", iniciar o docker descktop e ultilizar o comando:
+```
+docker compose up
+```
+### 📋 Pré-requisitos
 
-    criação de usuario e associação de contas ao usario, 
-    criação de ação e assciação da ação a conta, pode-se também
-    consultar o valor o valor da carteira baseado na quantidade e cotação real
-    do ativo através da injeção da brAPI
+- docker
+- postman
+- Token da Brapi
     
