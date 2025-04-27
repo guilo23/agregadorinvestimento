@@ -13,4 +13,35 @@ docker compose up
 - docker
 - postman
 - Token da Brapi
+
+  ## ⚙️ Executando os testes
+
+-endpoint para criar user: http://localhost:8081/v1/users
+```
+request:
+{
+    "username":"teste",
+    "email":"teste@gmail.com",
+    "password":"senhateste"
+}
+```
+- endpoint para criar uma account http://localhost:8080/v1/users/{userId}/accounts
+```
+  request:
+{
+    "accountName":"Gui"
+}
+  ```
+ - endpoint para associar uma stock: http://localhost:8080/v1/accounts/{accountId}/stocks
+```
+  request:
+{
+    "stockId":"ELET6",
+    "purchasePrice":"30.0",
+    "quantity":"10"
+}
+```
+
+
+
     
